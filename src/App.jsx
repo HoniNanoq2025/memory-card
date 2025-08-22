@@ -2,11 +2,20 @@ import Header from "./components/Header/Header";
 import Subtitle from "./components/Subtitle/Subtitle";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
 import Footer from "./components/Footer/Footer";
+import Loader from "./components/Loader/Loader";
 import useFetch from "./hooks/useFetch";
 import styles from "./App.module.css";
 
 function App() {
   const { data, loading, error } = useFetch();
+
+  const handleReset = () => {
+    localStorage.setItem("score", 0);
+    localStorage.setItem("clickedImages", JSON.stringify([]));
+    // Optionally reset bestScore if you want
+    // localStorage.setItem("bestScore", 0);
+    window.location.reload(); // Reload to reset UI state
+  };
 
   if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
@@ -14,7 +23,8 @@ function App() {
   return (
     <div className={styles.container}>
       <Header />
-      <Subtitle />
+      <button onClick={handleReset}>Reset Game</button>
+      <Subtitle totalCards={data?.images?.length || 0} />
       <CardsGrid data={data} />
       <Footer />
     </div>

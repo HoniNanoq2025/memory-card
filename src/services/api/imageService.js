@@ -1,26 +1,24 @@
-import { fetchNekosiaImages } from "./nekosiaApi";
-import { fetchNekosImages } from "./nekos.Api";
-import { fetchNekosBestImages } from "./nekosBestApi";
+// src/services/api/imageService.js
+import { fetchPicsumImages } from "./picsumApi.js";
+import { fetchCatImages } from "./catApi.js";
+import { fetchDogImages } from "./dogApi.js";
 
 export async function fetchImages() {
   try {
-    // Try primary API first
-    return await fetchNekosiaImages();
+    // Try Lorem Picsum first - most reliable
+    return await fetchPicsumImages();
   } catch (error) {
-    console.warn("Primary API failed, trying fallback:", error);
+    console.warn("Picsum API failed, trying cat API:", error);
 
-    // Try fallback API
+    // Try cat API as fallback
     try {
-      return await fetchNekosBestImages();
+      return await fetchCatImages();
     } catch (fallbackError) {
-      console.warn(
-        "Fallback API failed, trying second fallback:",
-        fallbackError
-      );
+      console.warn("Cat API failed, trying dog API:", fallbackError);
 
-      // Try second fallback API
+      // Try dog API as second fallback
       try {
-        return await fetchNekosImages();
+        return await fetchDogImages();
       } catch (secondFallbackError) {
         console.error("All APIs failed:", secondFallbackError);
         throw new Error("All image APIs failed");

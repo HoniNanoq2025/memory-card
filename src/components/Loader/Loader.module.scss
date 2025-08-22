@@ -1,0 +1,163 @@
+// src/components/Loader/Loader.module.scss
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.loader {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+
+  &:nth-child(1) {
+    animation-delay: -0.32s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0s;
+  }
+}
+
+// Size variants
+.small .spinner {
+  width: 8px;
+  height: 8px;
+  background-color: #2196f3;
+}
+
+.medium .spinner {
+  width: 12px;
+  height: 12px;
+  background-color: #2196f3;
+}
+
+.large .spinner {
+  width: 16px;
+  height: 16px;
+  background-color: #2196f3;
+}
+
+// Variant styles
+.spinner .spinner {
+  background-color: #2196f3;
+}
+
+.dots .spinner {
+  background-color: #666;
+}
+
+.pulse .spinner {
+  background-color: #ff5722;
+}
+
+.message {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+// Animations
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Alternative spinner animation (single rotating spinner)
+.rotating {
+  .spinner {
+    display: none;
+
+    &:first-child {
+      display: block;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #2196f3;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Pulsing variant
+.pulsing {
+  .spinner {
+    animation: pulse 1.5s infinite ease-in-out;
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 1s;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .message {
+    font-size: 0.8rem;
+  }
+}
+
+// Dark mode support (if needed)
+@media (prefers-color-scheme: dark) {
+  .message {
+    color: #ccc;
+  }
+
+  .dots .spinner {
+    background-color: #ccc;
+  }
+}

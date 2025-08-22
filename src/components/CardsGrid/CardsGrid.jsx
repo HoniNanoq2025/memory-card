@@ -28,10 +28,10 @@ function CardsGrid(data) {
       // Reset clicked images when new batch is loaded
       setClickedImages([]);
     }
-  }, [fetchedData]);
+  }, [fetchedData, setClickedImages]);
 
   // Helper function to update the best score
-  function updateBestSCore(currentScore) {
+  function updateBestScore(currentScore) {
     if (currentScore > bestScore) {
       setBestScore(currentScore);
     }
@@ -45,7 +45,7 @@ function CardsGrid(data) {
     //If clicking the same image twice, reset everything
     if (clickedImages.includes(imageId)) {
       // Update the best score if necessary
-      updateBestSCore(score);
+      updateBestScore(score);
 
       setClickedImages([]);
       setScore(0);
@@ -56,9 +56,10 @@ function CardsGrid(data) {
 
       // Check for perfect score (all cards clicked once)
       if (newClickedImages.length === images.length) {
-        updateBestSCore;
+        updateBestScore(newScore); // Fixed: was missing function call parentheses
         fetchData();
         setClickedImages([]);
+        setScore(0); // Reset score after perfect game
       } else {
         // Shuffle the images
         const shuffled = [...images].sort(() => Math.random() - 0.5);
@@ -77,11 +78,11 @@ function CardsGrid(data) {
 
   return (
     <div className={styles.container}>
-      {images.map((item) => (
+      {images.map((item, index) => (
         <Card
-          key={getKey()}
+          key={item.id || `image-${index}`} // Fixed: use item.id or fallback to index
           imgUrl={item?.image?.original?.url || ""}
-          imageId={item.id}
+          ImageId={item.id}
           categoryName={item.category}
           processTurn={(imageId) => processTurn(imageId)}
         />

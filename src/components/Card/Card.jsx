@@ -16,7 +16,7 @@ const Card = React.memo(function Card({
   }, []);
 
   const handleClick = useCallback(() => {
-    processTurn(imageId);
+    processTurn(ImageId);
   }, [processTurn, ImageId]);
 
   return (
