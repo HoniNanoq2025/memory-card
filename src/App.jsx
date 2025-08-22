@@ -1,4 +1,5 @@
 import Header from "./components/Header/Header";
+import Score from "./components/Score/Score";
 import Subtitle from "./components/Subtitle/Subtitle";
 import CardsGrid from "./components/CardsGrid/CardsGrid";
 import Footer from "./components/Footer/Footer";
@@ -24,6 +25,7 @@ function App() {
     <div className={styles.container}>
       <Header />
       <button onClick={handleReset}>Reset Game</button>
+      <Score />
       <Subtitle totalCards={data?.images?.length || 0} />
       <CardsGrid data={data} />
       <Footer />
