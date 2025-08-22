@@ -4,7 +4,7 @@ import CardsGrid from "./components/CardsGrid/CardsGrid";
 import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader/Loader";
 import useFetch from "./hooks/useFetch";
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 
 function App() {
   const { data, loading, error } = useFetch();

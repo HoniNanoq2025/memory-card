@@ -38,12 +38,12 @@ function CardsGrid(data) {
   }
 
   //Core game logic
-  function processTurn(imageId) {
-    const newClickedImages = [...clickedImages, imageId];
+  function processTurn(ImageId) {
+    const newClickedImages = [...clickedImages, ImageId];
     setClickedImages(newClickedImages);
 
     //If clicking the same image twice, reset everything
-    if (clickedImages.includes(imageId)) {
+    if (clickedImages.includes(ImageId)) {
       // Update the best score if necessary
       updateBestScore(score);
 
@@ -84,7 +84,7 @@ function CardsGrid(data) {
           imgUrl={item?.image?.original?.url || ""}
           ImageId={item.id}
           categoryName={item.category}
-          processTurn={(imageId) => processTurn(imageId)}
+          processTurn={(ImageId) => processTurn(ImageId)}
         />
       ))}
     </div>
