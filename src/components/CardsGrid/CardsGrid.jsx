@@ -6,6 +6,8 @@ import Loader from "../Loader/Loader";
 import styles from "./CardsGrid.module.scss";
 import useFetch from "../../hooks/useFetch";
 
+const getKey = () => crypto.randomUUID();
+
 function CardsGrid(data) {
   //State Management
   const [images, setImages] = useState(data?.data?.images || []);
@@ -28,7 +30,7 @@ function CardsGrid(data) {
       // Reset clicked images when new batch is loaded
       setClickedImages([]);
     }
-  }, [fetchedData, setClickedImages]);
+  }, [fetchedData]);
 
   // Helper function to update the best score
   function updateBestScore(currentScore) {
@@ -39,11 +41,11 @@ function CardsGrid(data) {
 
   //Core game logic
   function processTurn(ImageId) {
-    const newClickedImages = [...clickedImages, ImageId];
+    const newClickedImages = [...clickedImages, imageId];
     setClickedImages(newClickedImages);
 
     //If clicking the same image twice, reset everything
-    if (clickedImages.includes(ImageId)) {
+    if (clickedImages.includes(imageId)) {
       // Update the best score if necessary
       updateBestScore(score);
 
@@ -59,7 +61,7 @@ function CardsGrid(data) {
         updateBestScore(newScore); // Fixed: was missing function call parentheses
         fetchData();
         setClickedImages([]);
-        setScore(0); // Reset score after perfect game
+        /* setScore(0); // Reset score after perfect game */
       } else {
         // Shuffle the images
         const shuffled = [...images].sort(() => Math.random() - 0.5);
@@ -78,13 +80,13 @@ function CardsGrid(data) {
 
   return (
     <div className={styles.container}>
-      {images.map((item, index) => (
+      {images.map((item) => (
         <Card
-          key={item.id || `image-${index}`} // Fixed: use item.id or fallback to index
+          key={getKey()} // Fixed: use item.id or fallback to index
           imgUrl={item?.image?.original?.url || ""}
-          ImageId={item.id}
-          categoryName={item.category}
-          processTurn={(ImageId) => processTurn(ImageId)}
+          ImageId={item?.id}
+          categoryName={item?.category}
+          processTurn={(imageId) => processTurn(imageId)}
         />
       ))}
     </div>
